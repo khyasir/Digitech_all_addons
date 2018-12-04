@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_task_view_form_inherit1_copy" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_ids']/tree/field[@name='name']" position="after">
+                    <field name="entries_col" />
+                    <button name="MyInitiateTask" string="Start Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="SDate" string="Start Task" on_change="STask(SDate,EDate)"  />
+                    <button name="MyFinalTask" string="End Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="EDate" string="End Task" on_change="STask(SDate,EDate)"/>
+                    <field name="Diff_date"/>
+                    <field name="amount_recalculate" />
+                </xpath>
+            </field>                                 
+        </record>
+        <record id="project_task_view_form_inherit1_copy1" model="ir.ui.view">
+            <field name="name">project_task_working_ids</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_ids']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('hourly_check', '!=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='reviewer_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+               <!--  <xpath expr="//field[@name='fixed_check']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '!=', True)]}</attribute>
+                </xpath> -->
+                <!-- <xpath expr="//field[@name='hourly_check']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '!=', True)]}</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='date_deadline']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='planned_hours']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath>
+<!--                 <xpath expr="//field[@name='material_ids']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('valid', '=', True)]}</attribute>
+                </xpath> -->
+                <xpath expr="//field[@name='date_deadline']" position="after">
+                    <field name="valid" groups="__export__.res_groups_99"/>
+                </xpath>
+            </field>                                 
+        </record>
+        <record id="project_task_view_form_mat" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Fixed Entries']" position="attributes">
+                    <attribute name="attrs">{'invisible':[('fixed_check', '!=', True)]}</attribute>
+                </xpath>
+            </field>                                 
+        </record>
+        <record id="project_task_view_form_inherit2" model="ir.ui.view">
+            <field name="name">project_task_materials</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='material_ids']/tree/field[@name='quantity']" position="before">
+                    <field name="description"/>
+                </xpath>
+		<xpath expr="//field[@name='material_ids']/tree/field[@name='quantity']" position="after">
+                    <button name="MyInitiateTask" string="Start Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="SDate" string="Start Task" on_change="STask(SDate,EDate)"  />
+                    <button name="MyFinalTask" string="End Time" type="object"  class="oe_highlight" attrs="{'invisible': [('Diff_date','!=','/')]}"/>
+                    <field name="EDate" string="End Task" on_change="STask(SDate,EDate)"/>
+                    <field name="Diff_date"/>
+                    <field name="amount_recalculate" />
+                    <field name="hours" widget="float_time" sum="Spent Hours"/>
+		    <field name="date" on_change="ochange_test_date(date)"/>
+		    <field name="test_date" invisible="1" />
+                    <!--<field name="user_id"/>-->
+                    <field name="done_by"/>
+                </xpath>
+            </field>                                 
+        </record>
+
+        <record id="project_task_view_form_inherit3" model="ir.ui.view">
+            <field name="name">project_project</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="replace">
+                    <field name="project_id" string="Project" on_change="on_change_project_id_task(project_id)"/>
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_view_form_inherit4" model="ir.ui.view">
+            <field name="name">project_task_description_customization</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Extra Info']" position="after">
+                    <page string="Task Description">
+                        <field name='describe' placeholder="Add a Description..."/>
+                    </page>
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_task_view_form_inherit4" model="ir.ui.view">
+            <field name="name">project_project</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="after">
+                    <!-- <field name="worksheet_link" widget="url" placeholder="www.google.com" /> -->
+                    <field name="Rate_per_entry" attrs="{'invisible':[('fixed_check', '!=', True)],'readonly':[('valid', '=', True)]}"/>
+                    <field name="hourly_check" attrs="{'readonly':[('valid', '=', True)]}"/>
+                    <field name="fixed_check" attrs="{'readonly':[('valid', '=', True)]}"/>
+                   <!--  <field name='start_tracker' />
+                    <field name="product_id" />
+                    <field name="proj_relation" widget="many2many_tags"/> -->
+                </xpath>
+            </field>                                 
+        </record>
+
+        <record id="project_task_view_form_inherit8" model="ir.ui.view">
+            <field name="name">project_project</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//field[@name='categ_ids']" position="replace">
+                    <field name="tags"  invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='progress']" position="replace">
+                    <field name="working_time_progress"  invisible="1" />
+                </xpath> -->
+
+                <xpath expr="//field[@name='categ_ids']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>               
+                </xpath>
+
+                <xpath expr="//field[@name='progress']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>               
+                </xpath>
+
+                <xpath expr="//page[@string='Extra Info']" position="attributes">
+                    <attribute name="attrs">{'invisible': 1}</attribute>               
+                </xpath>
+            </field>                                 
+        </record>
+
+
+        <record id="project_view_form_inherit1" model="ir.ui.view">
+            <field name="name">project_project_customization</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Team']" position="before">
+                    <page string="Description">
+                        <field name='description' placeholder="Add a Description..."/>
+                    </page>
+                </xpath>
+            </field>                                 
+        </record>
+
+        <record id="project_view_form_inherit2" model="ir.ui.view">
+            <field name="name">project_product_customization</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='partner_id']" position="after">
+                     <newline/>
+                        <field name='product_relation' widget="many2many_tags" string="Select Products" on_change="onchang_this_field(product_relation)"/>
+                         <newline/>
+                        <field name='source' string="Source"/>
+                         <newline/>
+                        <field name='link' string="Link" widget="url" placeholder="www.google.com"/>
+                         <newline/>
+                        <field name='hourly_check' string="For Hourly Work"/>
+                        <newline/>
+                        <field name='fixed_check' string="For Fixed Work" />
+                    
+                </xpath>
+            </field>                                 
+        </record>
+
+        <record id="employee_form_inherit1" model="ir.ui.view">
+            <field name="name">employee_form_inherit1</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/field[@name='otherid']" position="after">
+                    <field name='religion'/>
+                    <field name='blood_group'/>
+                    <!-- <field name='valid_emp'/> -->
+                </xpath>
+
+                
+            </field>                                 
+        </record>        
+
+        <record id="employee_form_inherit1" model="ir.ui.view">
+            <field name="name">employee_form_inherit1</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_employee_extd_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name='valid_emp' groups="__export__.res_groups_100"/>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="replace">
+                    <!-- <attribute name="attrs">{'readonly':[('valid_emp', '=', True)]}</attribute> -->
+                    <field name='product_id' options="{'no_open': True, 'no_create': True}" attrs="{'readonly':[('valid_emp','=',True)]}"/>
+                </xpath>
+
+            </field>                                 
+        </record>
+
+    <record id="branch_form_view"   model="ir.ui.view"> 
+        <field name="name">branch_form_view</field> 
+        <field name="model">res.users</field> 
+        <field name="inherit_id" ref="base.view_users_form"/> 
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+              <field name="task_custom_admin"/>  
+            </xpath>
+        </field> 
+    </record>
+
+    </data>
+</openerp>

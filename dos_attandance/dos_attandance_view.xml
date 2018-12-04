@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+        <record id="view_dos_attandance_form" model="ir.ui.view">
+            <field name="name">view_dos_attandance_form</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Attendances']" position="after">
+                    <page string="DOS" name="dos_attendance">
+                        <group name="group_top">
+                            <button type="object" name="action_create_check_list" string="Update"/>
+                            <field name="dos_period_ids" nolabel="1">
+                                <tree editable="top">
+                                    <field name="name"/>
+                                    <field name="attendance" widget="float_time" sum="Attendances"/>
+                                    <field name="total_timesheet" widget="float_time" sum="t"/>
+                                    <field name="difference" widget="float_time" sum="d"/>
+                                    <field name="action"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+	</data>
+
+</openerp>
+
+<!--    -->

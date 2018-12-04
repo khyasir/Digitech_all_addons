@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+
+       <record id="dos_journal_avg_entries_tree_view" model="ir.ui.view">
+            <field name="name">dos_journal_avg_entries_tree_view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="dos_analytic_journal.dos_analytic_journal_view_tree_custom"/>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='total_no_of_entries']" position="after">
+                    <field name="entries_hour_avg" sum="Entries Avg"/>
+                    <field name="hourly_avg_f" sum="Hour Avg"/>
+                    <field name="total_entries_hour_avg"/>
+                    <field name="total_hourly_avg_f" />
+                </xpath>
+            </field>
+        </record>
+
+       <record id="dos_journal_avg_entries_form_view" model="ir.ui.view">
+            <field name="name">dos_journal_avg_entries_form_view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="dos_analytic_journal.dos_analytic_journal_view_form_custom"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='total_no_of_entries']" position="after">
+                    <field name="total_entries_hour_avg"/>
+                    <field name="total_hourly_avg_f" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

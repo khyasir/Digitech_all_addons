@@ -1,0 +1,30 @@
+<openerp>
+    <data>
+<!--         <record id="dos_fixed_entries_timesheet_custom_fields" model="ir.ui.view">
+            <field name="name">dos_fixed_entries_timesheet_custom_fields</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="fixed_entries" />
+                </xpath>
+                <xpath expr="//field[@name='general_account_id']" position="attributes">
+                    <attribute name="attrs">{'required':False}</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="dos_fixed_entries_timesheet_custom_fields_tree" model="ir.ui.view">
+            <field name="name">dos_fixed_entries_timesheet_custom_fields_tree</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="fixed_entries" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

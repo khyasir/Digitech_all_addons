@@ -1,0 +1,48 @@
+<openerp>
+    <data>
+        <record id="expense_form_extension_view_form_loan" model="ir.ui.view">
+            <field name="name">expense_form_extension_view_form_loan</field>
+            <field name="model">hr.expense.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <group name="left">
+                        <field name="types" attrs="{'invisible': [('loan', '=', True)]}"/>
+                        <field name="loan" attrs="{'invisible': [('types', '=', 'advance')]}"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@string='Description']" position="after">
+                    <!-- Page-"Loan Managment"-START -->
+                        <page string="Loan Managment" attrs="{'invisible':[('loan', '==', False)]}">
+                            <!-- Workbook-"Assets"-START -->
+                                <group name="loan_terms" string="Loan Terms">
+                                    <field name="loan_start_date" attrs="{'required': [('loan', '=', True)]}"/>
+                                    <field name="loan_end_date" attrs="{'required': [('loan', '=', True)]}"/>
+                                    <field name="installments"/>
+                                    <field name="amount_per_month"/>
+                                    <field name="loan_paid"/>
+                                    <field name="loan_remaining"/>
+                                    
+                                </group>
+                            <!-- Workbook-"Assets"-ENDS -->
+                                <group name="group_top" string="Payment History">
+                                    <button name="show_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link"/>
+                                </group>
+                                <!-- Workbook-"Assets"-START -->
+                                    <field name="pringle" >
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="date"/>
+                                            <field name="slip_id"/>
+                                            <field name="amount"/>
+                                        </tree>
+                                    </field>
+                                <!-- Workbook-"Assets"-ENDS -->
+                        </page>
+                    <!-- Page-"Loan Managment"-ENDS -->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

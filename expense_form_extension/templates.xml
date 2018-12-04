@@ -1,0 +1,58 @@
+<openerp>
+    <data>
+        <record id="expense_form_extension_view_form" model="ir.ui.view">
+            <field name="name">expense_form_extension_view_form</field>
+            <field name="model">hr.expense.expense</field>
+            <field name="inherit_id" ref="hr_expense.view_expenses_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_id']" position="after" class="row">
+                    <group name="left">
+                        <field name="hide_button1" invisible="1"></field>
+                        <field name="hide_button2" invisible="1"></field>
+                        <field name="advance"/>
+                    </group>
+                    <group name="right">
+                        <button name="advance_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link" attrs="{'invisible':[('hide_button1', '!=', False)]}"/>
+                    </group>
+                    <group name="left">
+                        <field name="returned"/>
+                        <field name="net"/>
+                    </group>
+                    <group name="right">
+                        <button name="returned_btn" type="object" string="⇒ Update" class="oe_button oe_form_button oe_link" attrs="{'invisible':[('hide_button2', '!=', False)]}"/>
+                    </group>
+                </xpath>
+                <!-- ///////////////////////////////////////////////////////////// -->
+
+                <xpath expr="//button[@name='done']" position="replace">
+                    <button name="done"  string="Waiting Payment" type="workflow" states="accepted" groups="account.group_account_invoice" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//button[@name='action_view_move']" position="replace">
+                    <button name="my_btn"  string="Paid" states="done" type="object" class="oe_highlight"/>
+                </xpath>
+                <xpath expr="//page[@string='Accounting']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='product_id']" position="replace">
+                    <field name="product_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='analytic_account']" position="replace">
+                </xpath>
+            </field>
+        </record>
+        <record id="expense_form_extension_view_form_1" model="ir.ui.view">
+            <field name="name">expense_form_extension_view_form_1</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='name']" position="after">
+                    <field name="employee"/>
+                </xpath>
+                <!-- <xpath expr="//field[@name='line_ids']/tree/field[@name='employee']" position="after">
+                    <field name="expnse_id"/>
+                </xpath> -->
+            </field>
+        </record>
+    </data>
+</openerp>
